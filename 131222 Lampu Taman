@@ -1,0 +1,30 @@
+#define BLYNK_PRINT Serial
+#include <ESP8266WiFi.h
+#include <BlynkSimpleEsp8266.h>
+
+WidgetLCD lcd(V1);
+char auth[] = “C1UUSChZTojANuvg1I8NiC3el4YQ7nKr”;
+char ssid[] = “vivo Y12s 2021”;
+char pass[] = “apapnyagede”;
+
+int RLY1 = D8; 
+
+void setup()
+{  
+// Debug console
+Serial.begin(9600); 
+pinMode(RLY1, OUTPUT); 
+Blynk.begin(auth, ssid, pass);
+}
+BLYNK_WRITE(V0){    
+if (param.asInt()==0){               
+digitalWrite(RLY1, HIGH);
+        lcd.clear();}
+else {
+       digitalWrite(RLY1, LOW);
+        lcd.print(0,1,”RELAY 1 AKTIF”);
+}
+}
+void loop(){
+    Blynk.run();
+}
